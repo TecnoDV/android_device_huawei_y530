@@ -218,9 +218,21 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    libwcnss_qmi
-#    libQWiFiSoftApCfg \
-#    wcnss_service
+    p2p_supplicant_overlay.conf \
+    wpa_supplicant_overlay.conf
+ 
+PRODUCT_PACKAGES += \
+    hostapd.accept \
+    hostapd.deny \
+    hostapd_default.conf
+ 
+PRODUCT_PACKAGES += \
+    WCNSS_qcom_wlan_nv.bin
+ 
+ # Prima(pronto firmware)
+PRODUCT_COPY_FILES += \
+    device/huawei/y530/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    device/huawei/y530/wifi/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.qc.sub.rstrtlvl=3 \
