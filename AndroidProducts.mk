@@ -15,4 +15,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/full_y530.mk
+    $(LOCAL_DIR)/y530.mk

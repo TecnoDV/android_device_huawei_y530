@@ -1,11 +1,11 @@
 #
-# Copyright 2014 The Android Open Source Project
+# Copyright (C) 2014 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-TARGET_BOOTLOADER_BOARD_NAME := y530
+# inherit from the proprietary version
+-include vendor/huawei/y530/BoardConfigVendor.mk
 
 LOCAL_PATH := device/huawei/y530
 
@@ -29,8 +29,8 @@ TARGET_ARCH := arm
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
+TARGET_CPU_VARIANT := cortex-a7
 TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_CPU_VARIANT := krait
 
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
@@ -60,7 +60,8 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/huawei/y530/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+
 
 # Build
 TARGET_SYSTEMIMAGE_USE_SQUISHER := true
@@ -75,12 +76,12 @@ COMMON_GLOBAL_CFLAGS += -DHUAWEI_MSM8610_CAMERA
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Dalvik
-TARGET_ARCH_LOWMEM := true
+#TARGET_ARCH_LOWMEM := true
 
 # Graphics
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-TARGET_QCOM_DISPLAY_VARIANT := caf-new
+TARGET_QCOM_DISPLAY_VARIANT := caf-legacy
 TARGET_USES_ION := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/prebuilt/system/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := true
@@ -98,7 +99,7 @@ TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Media
-TARGET_QCOM_MEDIA_VARIANT := caf-new
+TARGET_QCOM_MEDIA_VARIANT := caf-legacy
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 #Partition
@@ -131,6 +132,7 @@ TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/class/leds/lcd-backlight/brightness
 BOARD_HAS_NO_SELECT_BUTTON := true
 DEVICE_RESOLUTION := 480x854
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
+BOARD_RECOVERY_SWIPE := true
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true

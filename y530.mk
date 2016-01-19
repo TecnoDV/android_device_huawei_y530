@@ -1,11 +1,11 @@
 #
-# Copyright 2016 The Android Open Source Project
+# Copyright (C) 2014 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,33 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 LOCAL_PATH := device/huawei/y530
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
-    $(LOCAL_PATH)/rootdir/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.factory.sh:root/init.qcom.factory.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.rc:root/init.qcom.rc \
-    $(LOCAL_PATH)/rootdir/init.qcom.sh:root/init.qcom.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.ssr.sh:root/init.qcom.ssr.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.rc:root/init.qcom.rc \
-    $(LOCAL_PATH)/rootdir/init.qcom.sh:root/init.qcom.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.ssr.sh:root/init.qcom.ssr.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.syspart_fixup.sh:root/init.qcom.syspart_fixup.sh \
-    $(LOCAL_PATH)/rootdir/init.qcom.usb.rc:root/init.qcom.usb.rc \
-    $(LOCAL_PATH)/rootdir/init.qcom.usb.sh:root/init.qcom.usb.sh \
-    $(LOCAL_PATH)/rootdir/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
-    $(LOCAL_PATH)/rootdir/init.trace.rc:root/init.trace.rc \
-	$(LOCAL_PATH)/rootdir/init.usb.rc:root/init.usb.rc \
-	$(LOCAL_PATH)/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc \
-
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
+# media_profiles and media_codecs xmls for 8610
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml
+	
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/whitelist_appops.xml:system/etc/whitelist_appops.xml
 
@@ -78,6 +64,13 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     $(LOCAL_PATH)/prebuilt/system/etc/permissions/com.qualcomm.location.xml:system/etc/permissions/com.qualcomm.location.xml
+#    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+#    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+#    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml
+
+# Sensors feature definition file/s
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal hdpi
@@ -120,6 +113,13 @@ PRODUCT_PACKAGES += \
     arec \
     alsaucm_test
 
+# Audio configuration file
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/configs/mixer_paths.xml:system/etc/mixer_paths.xml \
+    $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/configs/globalAutoAdapt-conf.xml:system/etc/globalAutoAdapt-conf.xml
+
 # Charger
 PRODUCT_PACKAGES += \
     charger \
@@ -160,6 +160,7 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8610
+
 
 #OEM Services library
 PRODUCT_PACKAGES += \
@@ -206,7 +207,24 @@ PRODUCT_PACKAGES += \
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
+
+# Thermald
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf
+
+# Keylayouts
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+
+# Spn config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/spn-conf.xml:system/etc/spn-conf.xml \
+    $(LOCAL_PATH)/configs/apns-conf.xml:system/etc/apns-conf.xml
 	
+# Update-Binary
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/update-binary:obj/EXECUTABLES/updater_intermediates/updater
+
 # Ramdisk
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,device/huawei/y530/ramdisk,root)
@@ -222,27 +240,15 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    p2p_supplicant_overlay.conf \
-    wpa_supplicant_overlay.conf
- 
-PRODUCT_PACKAGES += \
-    hostapd.accept \
-    hostapd.deny \
-    hostapd_default.conf
- 
-PRODUCT_PACKAGES += \
-    WCNSS_qcom_wlan_nv.bin
- 
- # Prima(pronto firmware)
-PRODUCT_COPY_FILES += \
-    device/huawei/y530/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    device/huawei/y530/wifi/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
+    libwcnss_qmi
+#    libQWiFiSoftApCfg \
+#    wcnss_service
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.qc.sub.rstrtlvl=3 \
     persist.sys.qc.sub.rdump.on=1 \
     persist.sys.qc.sub.rdump.max=20 \
-    wifi.interface=wlan0 
+    wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15
 
 # Set default USB interface
@@ -255,14 +261,14 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.whitelist=/system/etc/whitelist_appops.xml \
     ro.secure=0
 
-# PRODUCT_PROPERTY_OVERRIDES += \
-    # ro.product.model=Y530-U00
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.model=y530-U00
 
 	
 $(call inherit-product, build/target/product/full.mk)
 
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-
 $(call inherit-product-if-exists, vendor/huawei/y530/y530-vendor.mk)
+
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
