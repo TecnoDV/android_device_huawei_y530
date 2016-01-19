@@ -206,6 +206,10 @@ PRODUCT_PACKAGES += \
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
+	
+# Ramdisk
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,device/huawei/y530/ramdisk,root)
 
 # Prebuilt
 PRODUCT_COPY_FILES += \
@@ -238,7 +242,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.qc.sub.rstrtlvl=3 \
     persist.sys.qc.sub.rdump.on=1 \
     persist.sys.qc.sub.rdump.max=20 \
-    wifi.interface=wlan0 \
+    wifi.interface=wlan0 
     wifi.supplicant_scan_interval=15
 
 # Set default USB interface
