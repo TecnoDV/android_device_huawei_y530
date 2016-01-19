@@ -23,7 +23,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from c8816 device
-$(call inherit-product, device/huawei/y530/y530.mk)
+$(call inherit-product, device/huawei/y530/full_y530.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := y530

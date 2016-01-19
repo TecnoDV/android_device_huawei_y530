@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-#include device/huawei/y530/kernel/AndroidKernel.mk
 
 LOCAL_PATH := $(call my-dir)
 
