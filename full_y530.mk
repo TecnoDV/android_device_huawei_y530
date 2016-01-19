@@ -1,5 +1,5 @@
 #
-# Copyright 2014 The Android Open Source Project
+# Copyright 2016 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +17,12 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 LOCAL_PATH := device/huawei/y530
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/init.class_main.sh:root/init.class_main.sh \
+	$(LOCAL_PATH)/rootdir/init.mdm.sh:root/init.mdm.sh \
+	$(LOCAL_PATH)/rootdir/init.mmi.radio.sh.sh:root/init.mmi.radio.sh \
+	$(LOCAL_PATH)/rootdir/init.qcom.ril.sh.sh:root/init.qcom.ril.sh \
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -223,8 +229,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.whitelist=/system/etc/whitelist_appops.xml \
     ro.secure=0
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.model=Y530-U00
+# PRODUCT_PROPERTY_OVERRIDES += \
+    # ro.product.model=Y530-U00
 
 	
 $(call inherit-product, build/target/product/full.mk)
