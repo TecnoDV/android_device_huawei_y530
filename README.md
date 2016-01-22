@@ -1,3 +1,1 @@
-Repo Only Ascend G630 TWRP
-
-Thanks Kra1o5
+Based on Ascend G630
