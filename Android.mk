@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2014 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,17 +14,10 @@
 # limitations under the License.
 #
 
+ifneq ($(filter y530,$(TARGET_DEVICE)),)
+
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),y530)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
-# Symlinks
-#$(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wlan/prima; \
-#    rm $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_qcom_cfg.ini; \
-#    rm $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin; \
-#    ln -sf /data/misc/wifi/WCNSS_qcom_cfg.ini \
-#    $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_qcom_cfg.ini; \
-#    ln -sf /persist/WCNSS_qcom_wlan_nv.bin \
-#    $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin)
 endif
