@@ -29,7 +29,7 @@ TARGET_ARCH := arm
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
-TARGET_CPU_VARIANT := cortex-a7
+TARGET_CPU_VARIANT := krait
 TARGET_ARCH_VARIANT := armv7-a-neon
 
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
@@ -38,7 +38,7 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Inline kernel building
-TARGET_KERNEL_SOURCE := kernel/huawei/msm8x1x
+TARGET_KERNEL_SOURCE := kernel/huawei/msm8610
 TARGET_KERNEL_CONFIG := msm8610_defconfig
 BOARD_CUSTOM_BOOTIMG_MK := device/huawei/y530/mkbootimg.mk
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 androidboot.selinux=permissive
@@ -48,7 +48,6 @@ BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
 
 # Audio
-TARGET_QCOM_AUDIO_VARIANT := caf
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_DISABLED_ANC_HEADSET := true
 AUDIO_FEATURE_DISABLED_SSR := true
@@ -78,10 +77,9 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # Dalvik
 #TARGET_ARCH_LOWMEM := true
 
-# Graphics
+# Display
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-TARGET_QCOM_DISPLAY_VARIANT := caf-new
 TARGET_USES_ION := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/prebuilt/system/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := true

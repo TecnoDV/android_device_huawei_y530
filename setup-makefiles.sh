@@ -1,7 +1,4 @@
 #!/bin/sh
-# Original file by Percy-G2
-# https://github.com/percy-g2/android_device_motorola_condor/blob/cm-11.0/setup-makefiles.sh
-#
 
 VENDOR=huawei
 DEVICE=y530
